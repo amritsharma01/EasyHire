@@ -1,17 +1,17 @@
+import 'package:easyhire_app/features/user/data/datasource/user_local_data_source.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../../abstractservices/storage_services.dart';
-import '../../../../core/services/storage_services/hive_keys.dart';
+
 import '../../domain/entity/user_entity.dart';
 import '../../domain/repository/user_repo.dart';
 import '../datasource/user_remote_data_source.dart';
-import '../model/user_model.dart';
 
 class UserRepoImpl implements UserRepo {
   final UserRemoteDataSource remoteDataSource;
-  final StorageServices storageService;
+  final UserLocalDataSource localDatasource;
 
-  UserRepoImpl(this.remoteDataSource, this.storageService);
+  UserRepoImpl(this.remoteDataSource, this.localDatasource);
 
   @override
   Future<UserEntity> fetchUserProfile() async {
@@ -27,10 +27,13 @@ class UserRepoImpl implements UserRepo {
 
   @override
   UserEntity? getLocalUser() {
-    final userJson = storageService.get(StorageKeys.user);
-    if (userJson != null) {
-      return UserModel.fromJson(Map<String, dynamic>.from(userJson));
+    try {
+      final userModel = localDatasource.getLocalUser();
+
+      return userModel;
+    } catch (e) {
+      debugPrint("Error in Repository: $e");
+      rethrow;
     }
-    return null;
   }
 }

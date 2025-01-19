@@ -1,5 +1,4 @@
 import 'package:easyhire_app/features/user/domain/entity/user_entity.dart';
-import 'package:flutter/foundation.dart';
 
 class UserModel extends UserEntity {
   UserModel({
@@ -12,22 +11,15 @@ class UserModel extends UserEntity {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     try {
-      debugPrint("Parsing UserModel from JSON: $json");
-
       final id = json["id"].toString();
-      debugPrint("Parsed ID: $id");
 
       final username = json["username"] as String;
-      debugPrint("Parsed Username: $username");
 
       final email = json["email"] as String;
-      debugPrint("Parsed Email: $email");
 
       final isEmployer = json["is_employer"] as bool;
-      debugPrint("Parsed isEmployer: $isEmployer");
 
       final isJobseeker = json["is_job_seeker"] as bool;
-      debugPrint("Parsed isJobseeker: $isJobseeker");
 
       return UserModel(
         id: id,

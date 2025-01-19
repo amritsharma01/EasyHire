@@ -17,7 +17,7 @@ class AuthRemoteDataSource {
       );
       return response;
     } catch (e) {
-      rethrow;
+      throw ("There was error connecting to server");
     }
   }
 

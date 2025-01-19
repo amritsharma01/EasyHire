@@ -1,9 +1,9 @@
+import 'package:easyhire_app/features/auth/presentation/pages/login_page.dart';
+import 'package:easyhire_app/features/employerapp/presentation/pages/employer_page_controller.dart';
+import 'package:easyhire_app/features/jobseekerapp/presentation/pages/jobseeker_page_controller.dart';
+import 'package:easyhire_app/features/user/presentation/provider/user_dependency_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../employerapp/presentation/pages/employer_page_controller.dart';
-import '../../../jobseekerapp/presentation/pages/jobseeker_page_controller.dart';
-import '../provider/user_dependency_providers.dart';
 
 class PagesController extends ConsumerWidget {
   const PagesController({super.key});
@@ -12,21 +12,14 @@ class PagesController extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userState = ref.watch(userNotifierProvider);
 
-    return userState.when(
-      data: (user) {
-        // Check if the user is an employer or a jobseeker
-        if (user.isEmployer) {
-          return EmployerPagesController();
-        } else {
-          return JobseekerPagesController();
-        }
-      },
-      loading: () => const Center(
-        child: CircularProgressIndicator(color: Colors.blue),
-      ),
-      error: (error, stack) => Center(
-        child: Text('Error: $error'),
-      ),
-    );
+    if (userState.user != null) {
+      if (userState.user!.isEmployer) {
+        return EmployerPagesController();
+      } else {
+        return JobseekerPagesController();
+      }
+    } else {
+      return LoginPage();
+    }
   }
 }

@@ -3,22 +3,18 @@ import 'package:easyhire_app/core/extensions/color_extensions.dart';
 import 'package:easyhire_app/core/extensions/text_style_extensions.dart';
 import 'package:easyhire_app/core/core_service_providers.dart';
 import 'package:easyhire_app/core/utils/app_icons.dart';
-import 'package:easyhire_app/features/auth/presentation/pages/login_page.dart';
 import 'package:easyhire_app/features/auth/presentation/providers/auth_dependency_providers.dart';
-import 'package:easyhire_app/features/auth/presentation/providers/login_notifier.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/buttonWidgets/button.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/textWidgets/app_text.dart';
 import 'package:easyhire_app/features/auth/presentation/pages/appearance.dart';
+import 'package:easyhire_app/features/user/presentation/provider/user_dependency_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/services/get.dart';
 import '../../../auth/presentation/widgets/buttonWidgets/appicon.dart';
-
 import '../widgets/app_list_tile.dart';
 import '../widgets/card.dart';
 import 'profile_page.dart';
@@ -99,10 +95,12 @@ class SettingsPage extends ConsumerWidget {
                   AppButton(
                     onTap: () async {
                       final loginNotifierProvider =
-                          ref.watch(loginProvider.notifier);
+                          ref.read(loginProvider.notifier);
+                      final logoutNotifierProvider =
+                          ref.read(userNotifierProvider.notifier);
                       await loginNotifierProvider.logout();
+                      await logoutNotifierProvider.clearUserProfile();
                       Get.snackbar("logged Out");
-                      Get.off(LoginPage());
                     },
                     text: "Logout",
                     bgcolor: Colors.redAccent.o8,

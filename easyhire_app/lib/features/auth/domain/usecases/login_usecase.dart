@@ -9,6 +9,6 @@ class LoginUseCase {
   Future<TokenEntity> execute(String username, String password) async {
     final response =
         await repository.getTokens(username: username, password: password);
-    return TokenEntity(access: response.access, refresh: response.refresh);
+    return response;
   }
 }

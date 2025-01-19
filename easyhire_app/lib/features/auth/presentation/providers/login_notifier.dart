@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/services/get.dart';
 import '../../../../core/services/storage_services/token_storage_service.dart';
 import '../../domain/usecases/login_usecase.dart';
 
@@ -23,17 +24,15 @@ class LoginNotifier extends StateNotifier<LoginState> {
       final refreshToken = token.refresh;
       await tokenStorage.saveTokens(accessToken!, refreshToken!);
     } catch (e) {
-      // Optionally log or process the error
-      state = LoginState(error: e.toString());
-      rethrow;
+      Get.snackbar("Username or Password Incorrect");
     }
   }
 
   Future<void> logout() async {
     try {
       // Remove token or session data from secure storage
+
       await tokenStorage.clearTokens();
-      print("logout vayo hai aba");
     } catch (e) {
       rethrow; // Handle errors if needed
     }

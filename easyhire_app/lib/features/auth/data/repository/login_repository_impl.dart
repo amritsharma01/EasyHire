@@ -20,7 +20,7 @@ class LoginRepoImpl implements LoginRepo {
 
       return token;
     } catch (e) {
-      return Get.snackbar("Error");
+      rethrow;
     }
   }
 }

@@ -7,6 +7,7 @@ import 'package:easyhire_app/features/auth/presentation/providers/text_field_pro
 import 'package:easyhire_app/features/auth/presentation/widgets/buttonWidgets/button.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/formWidget/form_field.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/textWidgets/app_text.dart';
+import 'package:easyhire_app/features/user/presentation/provider/user_dependency_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -68,16 +69,19 @@ class LoginPage extends ConsumerWidget {
                       final password = passwordController.text;
                       final loginNotiProvider =
                           ref.read(loginProvider.notifier);
+                      final userNotifier =
+                          ref.watch(userNotifierProvider.notifier);
                       final isValidated = key.currentState!.validate();
                       if (isValidated) {
                         try {
                           await loginNotiProvider.login(username, password);
                           // await loginNotiProvider.login("sharma", "11111111");
+                          await userNotifier.fetchUserProfile();
                           Get.off(PagesController());
-                        } catch (e) {
-                          Get.snackbar(e.toString());
+                        } on Exception {
+                          Get.snackbar("login ma problem");
                         }
-                      } else {}
+                      }
                     },
                     text: "Login"),
               ),
