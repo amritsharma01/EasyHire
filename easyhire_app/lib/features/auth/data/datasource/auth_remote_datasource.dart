@@ -51,7 +51,7 @@ class AuthRemoteDataSource {
           "is_job_seeker": isJobSeeker,
         },
       );
-      return response; // Assuming the response contains a `message` key
+      return response;
     } catch (e) {
       rethrow;
     }

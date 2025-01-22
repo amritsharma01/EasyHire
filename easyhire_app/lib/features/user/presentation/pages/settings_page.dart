@@ -17,6 +17,7 @@ import '../../../../core/services/get.dart';
 import '../../../auth/presentation/widgets/buttonWidgets/appicon.dart';
 import '../widgets/app_list_tile.dart';
 import '../widgets/card.dart';
+import 'bookmark_page.dart';
 import 'profile_page.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -75,6 +76,13 @@ class SettingsPage extends ConsumerWidget {
                       icon: AppIcons.menu,
                       onTap: () {
                         Get.to(const AppearancePage());
+                      }),
+
+                  _settinglisttile(
+                      title: "Bookmarks",
+                      icon: AppIcons.bookmark,
+                      onTap: () {
+                        Get.to(const BookmarkPage());
                       }),
 
                   if (kDebugMode)

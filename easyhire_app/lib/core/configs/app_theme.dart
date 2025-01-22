@@ -9,39 +9,41 @@ import 'app_text_style.dart';
 ////////////////////////App Themes////////////////////////////////
 final class AppThemes {
   static ThemeData get darkTheme => ThemeData(
-      brightness: Brightness.dark,
-      disabledColor: AppColors.white,
-      fontFamily: 'inter',
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      primaryIconTheme: Icontheme.darkIconTheme,
-      primaryColor: AppColors.primary,
-      colorScheme: const ColorScheme.dark(primary: AppColors.primary),
-      scaffoldBackgroundColor: AppColors.black,
-      textTheme: TextThemes.darkTextTheme,
-      iconTheme: Icontheme.darkIconTheme,
-      switchTheme: SwitchThemeData(
-        trackColor:
-            WidgetStateColor.resolveWith((states) => AppColors.primary.o5),
-        thumbColor: WidgetStateColor.resolveWith((states) => AppColors.black),
-      ),
-      bottomSheetTheme:
-          BottomSheetThemeData(backgroundColor: AppColors.transparent),
-      iconButtonTheme: IconButtonThemeData(
-        style: ButtonStyle(
-          iconColor: WidgetStateColor.resolveWith((states) => AppColors.white),
+        brightness: Brightness.dark,
+        disabledColor: AppColors.white,
+        fontFamily: 'inter',
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryIconTheme: Icontheme.darkIconTheme,
+        primaryColor: AppColors.primary,
+        colorScheme: const ColorScheme.dark(primary: AppColors.primary),
+        scaffoldBackgroundColor: AppColors.black,
+        textTheme: TextThemes.darkTextTheme,
+        iconTheme: Icontheme.darkIconTheme,
+        switchTheme: SwitchThemeData(
+          trackColor:
+              WidgetStateColor.resolveWith((states) => AppColors.primary.o5),
+          thumbColor: WidgetStateColor.resolveWith((states) => AppColors.black),
         ),
-      ),
-      cardColor: AppColors.black,
-      useMaterial3: false,
-      appBarTheme: AppBarTheme(
-          elevation: 0,
-          centerTitle: true,
-          toolbarHeight: 45.h,
-          backgroundColor: AppColors.black,
-          iconTheme: IconThemeData(size: 23.sp, color: AppColors.white),
-          actionsIconTheme: IconThemeData(color: AppColors.white, size: 15.sp),
-          titleTextStyle: TextThemes.darkTextTheme.bodyMedium!.px16));
-
+        bottomSheetTheme:
+            BottomSheetThemeData(backgroundColor: AppColors.transparent),
+        iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(
+            iconColor:
+                WidgetStateColor.resolveWith((states) => AppColors.white),
+          ),
+        ),
+        cardColor: AppColors.black,
+        useMaterial3: false,
+        appBarTheme: AppBarTheme(
+            elevation: 0,
+            centerTitle: true,
+            toolbarHeight: 45.h,
+            backgroundColor: AppColors.black,
+            iconTheme: IconThemeData(size: 23.sp, color: AppColors.white),
+            actionsIconTheme:
+                IconThemeData(color: AppColors.white, size: 15.sp),
+            titleTextStyle: TextThemes.darkTextTheme.bodyMedium!.px16),
+      );
   static ThemeData get lightTheme => ThemeData(
       brightness: Brightness.light,
       visualDensity: VisualDensity.adaptivePlatformDensity,

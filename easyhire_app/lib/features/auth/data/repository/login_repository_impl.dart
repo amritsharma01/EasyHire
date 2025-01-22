@@ -1,6 +1,5 @@
 import 'package:easyhire_app/features/auth/domain/entities/token_entity.dart';
 
-import '../../../../core/services/get.dart';
 import '../../domain/repositories/login_repo.dart';
 import '../datasource/auth_remote_datasource.dart';
 import '../models/token_model.dart';

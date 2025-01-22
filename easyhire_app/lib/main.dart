@@ -10,6 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/configs/app_colors.dart';
 import 'core/configs/app_theme_provider.dart';
 import 'core/core_service_providers.dart';
+import 'features/jobseekerapp/presentation/providers/bookmark_notifier.dart';
+import 'features/jobseekerapp/presentation/providers/jobs_dependency_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,10 +21,12 @@ void main() async {
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   final box = await Get.box.init();
   final themeProvider = await ThemeProvider(box).init();
+  final bookMarkNotifier = await BookmarkNotifier(box).init();
 
   runApp(ProviderScope(overrides: [
     storageServiceProvider.overrideWith((ref) => box),
     themeModeProvider.overrideWith((ref) => themeProvider),
+    bookmarkNotifierProvider.overrideWith((ref) => bookMarkNotifier)
   ], child: Core()));
 }
 

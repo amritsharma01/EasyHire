@@ -20,6 +20,8 @@ class AppButton extends StatelessWidget {
       this.bgcolor,
       this.transparentColor = true,
       this.radius = 10,
+      this.width,
+      this.height,
       this.textColor});
   final dynamic Function() onTap;
   final String text;
@@ -27,6 +29,8 @@ class AppButton extends StatelessWidget {
   final bool transparentColor;
   final Color? textColor;
   final double radius;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +48,8 @@ class AppButton extends StatelessWidget {
     }
     final border = BorderRadius.circular(radius).rt;
     return SizedBox(
-      height: 40.ht,
-      width: (Get.width - 60).wt,
+      height: height ?? 40.ht,
+      width: width ?? (Get.width - 60).wt,
       child: ValueListenableBuilder(
         valueListenable: notifier,
         builder: (context, loading, child) => AbsorbPointer(
@@ -74,7 +78,7 @@ class AppButton extends StatelessWidget {
             child: loading
                 ? SizedBox.square(
                     dimension: 15.ht,
-                    child: ApprogressIndicator(key: key, color: textcolor))
+                    child: AppProgressIndicator(key: key, color: textcolor))
                 : AppText(text,
                     style: textstyle.copyWith(
                       color: textcolor,

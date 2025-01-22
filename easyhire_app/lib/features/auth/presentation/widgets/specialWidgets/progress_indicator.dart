@@ -8,8 +8,8 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import '../../../../../core/services/get.dart';
 import '../../../../../core/utils/assets_path.dart';
 
-class ApprogressIndicator extends StatelessWidget {
-  const ApprogressIndicator({super.key, this.color});
+class AppProgressIndicator extends StatelessWidget {
+  const AppProgressIndicator({super.key, this.color});
 
   final Color? color;
   @override

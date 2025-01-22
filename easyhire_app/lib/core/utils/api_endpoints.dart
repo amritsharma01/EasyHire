@@ -3,8 +3,9 @@ final class ApiEndpoints {
   static const register = "api/auth/register/";
   static const refresh = "api/auth/refresh/";
   static const apply = "api/jobs/apply/";
-  static const list = "api/jobs/list/";
-  static const applications = "api/jobs/applications/";
+  static const joblist = "api/jobs/list/";
+  static const seekerApplications = "api/jobs/seeker/applications/";
+  static const employerApplicaitons = "api/jobs/employer/applications/";
   static const profile = "api/auth/profile/";
 
   // static String verse(int chapterId) => "$chapter$chapterId/verses/";

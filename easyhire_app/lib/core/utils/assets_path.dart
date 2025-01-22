@@ -5,7 +5,7 @@ class _AssetsImagesGen {
   static const _imagePath = "${Assets._basePath}/images";
 
   String get splashImage => "$_imagePath/";
-  // String get onboardingBg => "$_imagePath/onboarding_bg.svg";
+  String get logo => "$_imagePath/logo.png";
   // String get quotesBackground => "$_imagePath/bhagwatgita_cover.jpg";
   // String onbordingImage(index) => "$_imagePath/onboarding_image$index.png";
   // String get chapterFlower => "$_imagePath/chapter_flower.png";

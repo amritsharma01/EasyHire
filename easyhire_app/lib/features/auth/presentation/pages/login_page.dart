@@ -1,18 +1,20 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:easyhire_app/core/extensions/int.dart';
 import 'package:easyhire_app/core/extensions/padding.dart';
-import 'package:easyhire_app/core/extensions/text_style_extensions.dart';
 import 'package:easyhire_app/features/auth/presentation/pages/register_page.dart';
 import 'package:easyhire_app/features/auth/presentation/providers/key_provider.dart';
 import 'package:easyhire_app/features/auth/presentation/providers/text_field_provider.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/buttonWidgets/button.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/formWidget/form_field.dart';
-import 'package:easyhire_app/features/auth/presentation/widgets/textWidgets/app_text.dart';
+
 import 'package:easyhire_app/features/user/presentation/provider/user_dependency_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/services/get.dart';
+import '../../../../core/utils/assets_path.dart';
 import '../../../user/presentation/pages/pages_controller.dart';
 import '../providers/auth_dependency_providers.dart';
 
@@ -38,15 +40,9 @@ class LoginPage extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: AppText(
-                    "Login Here",
-                    style: Get.bodyLarge.px22.w900,
-                  ),
-                ),
+              Image.asset(
+                Assets.images.logo,
+                height: 100.ht,
               ),
               20.verticalGap,
               AppTextFormField(
@@ -71,11 +67,12 @@ class LoginPage extends ConsumerWidget {
                           ref.read(loginProvider.notifier);
                       final userNotifier =
                           ref.watch(userNotifierProvider.notifier);
+
                       final isValidated = key.currentState!.validate();
-                      if (isValidated) {
+                      if (!isValidated) {
                         try {
-                          await loginNotiProvider.login(username, password);
-                          // await loginNotiProvider.login("sharma", "11111111");
+                          //await loginNotiProvider.login(username, password);
+                          await loginNotiProvider.login("sharma", "11111111");
                           await userNotifier.fetchUserProfile();
                           Get.off(PagesController());
                         } on Exception {

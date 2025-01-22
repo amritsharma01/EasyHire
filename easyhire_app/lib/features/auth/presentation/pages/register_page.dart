@@ -1,4 +1,3 @@
-import 'package:easyhire_app/core/extensions/text_style_extensions.dart';
 import 'package:easyhire_app/features/auth/presentation/providers/text_field_provider.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/buttonWidgets/button.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +6,11 @@ import 'package:easyhire_app/core/extensions/int.dart';
 import 'package:easyhire_app/features/auth/presentation/pages/login_page.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/formWidget/form_field.dart';
 import 'package:easyhire_app/core/services/get.dart';
+import '../../../../core/utils/assets_path.dart';
 import '../providers/auth_dependency_providers.dart';
 import '../providers/key_provider.dart';
 
 import '../widgets/specialWidgets/radio_button.dart';
-import '../widgets/textWidgets/app_text.dart';
 
 class RegisterPage extends ConsumerWidget {
   const RegisterPage({super.key});
@@ -28,23 +27,15 @@ class RegisterPage extends ConsumerWidget {
     final mailValidator = ref.read(emailValidator);
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Form(
           key: key,
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: AppText(
-                    "SignUp Here",
-                    style: Get.bodyLarge.px22.w900,
-                  ),
-                ),
+              Image.asset(
+                Assets.images.logo,
+                height: 100.ht,
               ),
               20.verticalGap,
               AppTextFormField(

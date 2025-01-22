@@ -46,3 +46,15 @@ final usernameValidator = Provider<MultiValidator>((ref) => MultiValidator([
       // PatternValidator(r'(?=.*?[QWERTYUIOPASDFGHJKLZXCVBNM])',
       //     errorText: 'passwords must have at least one Capital Letter')
     ]));
+
+final cvLetterValidator = Provider<MultiValidator>((ref) => MultiValidator([
+      RequiredValidator(errorText: 'Cover letter is required'),
+      // MinLengthValidator(8,
+      //     errorText: 'password must be at least 8 digits long'),
+      // PatternValidator(r'(?=.*?[@#$%^&*()!])',
+      //     errorText: 'Password must be of correct format'),
+      // PatternValidator(r'(?=.*?[1234567890])',
+      //     errorText: 'passwords must have at least one neumeric character'),
+      // PatternValidator(r'(?=.*?[QWERTYUIOPASDFGHJKLZXCVBNM])',
+      //     errorText: 'passwords must have at least one Capital Letter')
+    ]));
