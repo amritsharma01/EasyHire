@@ -1,6 +1,7 @@
 import 'package:easyhire_app/core/extensions/color_extensions.dart';
 import 'package:easyhire_app/core/extensions/int.dart';
 import 'package:easyhire_app/core/extensions/text_style_extensions.dart';
+import 'package:easyhire_app/features/user/presentation/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,17 +19,18 @@ class AppearancePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final apper = ref.watch(themeModeProvider);
-    return PlatformScaffold(
-      appBar: PlatformAppBar(title: const AppText("Appearence")),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0).r,
+    return Scaffold(
+      appBar: AppBar(title: const AppText("Appearence")),
+      body: Mycard(
+        radius: 30,
+        margin: EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            30.verticalGap,
+            10.verticalGap,
             ListView.builder(
               shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: 25).r,
+              padding: const EdgeInsets.symmetric(horizontal: 5).r,
               itemCount: listAppearence.length,
               itemBuilder: (context, index) {
                 return Padding(
@@ -42,12 +44,12 @@ class AppearancePage extends ConsumerWidget {
                           radius: 10.r,
                           backgroundColor: Get.disabledColor.o3,
                           child: CircleAvatar(
-                              radius: 8.5.r,
+                              radius: 8.r,
                               backgroundColor: (apper.index) == index
                                   ? Get.primaryColor
-                                  : Get.scaffoldBackgroundColor),
+                                  : Get.cardColor),
                         ),
-                        30.horizontalGap,
+                        10.horizontalGap,
                         AppText(listAppearence[index],
                             style: Get.bodyLarge.px18)
                       ],

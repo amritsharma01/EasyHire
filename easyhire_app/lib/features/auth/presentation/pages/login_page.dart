@@ -1,5 +1,4 @@
 // ignore_for_file: unused_local_variable
-
 import 'package:easyhire_app/core/extensions/int.dart';
 import 'package:easyhire_app/core/extensions/padding.dart';
 import 'package:easyhire_app/features/auth/presentation/pages/register_page.dart';
@@ -7,12 +6,10 @@ import 'package:easyhire_app/features/auth/presentation/providers/key_provider.d
 import 'package:easyhire_app/features/auth/presentation/providers/text_field_provider.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/buttonWidgets/button.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/formWidget/form_field.dart';
-
 import 'package:easyhire_app/features/user/presentation/provider/user_dependency_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../core/services/get.dart';
 import '../../../../core/utils/assets_path.dart';
 import '../../../user/presentation/pages/pages_controller.dart';
@@ -30,16 +27,14 @@ class LoginPage extends ConsumerWidget {
     final passValdator = ref.read(passwordValidator);
     // final TextEditingController usernameController = TextEditingController();
     // final TextEditingController passwordController = TextEditingController();
-    return PlatformScaffold(
-      appBar: PlatformAppBar(
-        automaticallyImplyLeading: false,
-      ),
+    return Scaffold(
       body: SingleChildScrollView(
         child: Form(
           key: key,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              80.verticalGap,
               Image.asset(
                 Assets.images.logo,
                 height: 100.ht,
@@ -69,10 +64,12 @@ class LoginPage extends ConsumerWidget {
                           ref.watch(userNotifierProvider.notifier);
 
                       final isValidated = key.currentState!.validate();
-                      if (!isValidated) {
+                      if (isValidated) {
                         try {
-                          //await loginNotiProvider.login(username, password);
-                          await loginNotiProvider.login("sharma", "11111111");
+                          await loginNotiProvider.login(username, password);
+                          // await loginNotiProvider.login(
+                          //     "employer", "mypassword");
+                          // await loginNotiProvider.login("sharma", "11111111");
                           await userNotifier.fetchUserProfile();
                           Get.off(PagesController());
                         } on Exception {

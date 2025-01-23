@@ -1,29 +1,38 @@
-import 'package:easyhire_app/features/employerapp/presentation/pages/posted_jobs_page.dart';
+import 'package:easyhire_app/features/employerapp/presentation/pages/employer_homepage.dart';
 import 'package:easyhire_app/features/user/presentation/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/services/get.dart';
 import '../../../../core/utils/app_icons.dart';
-import 'applications_pages.dart';
+import '../providers/emp_dependency_providers.dart';
 
-class EmployerPagesController extends StatefulWidget {
+class EmployerPagesController extends ConsumerStatefulWidget {
   const EmployerPagesController({super.key});
 
   @override
-  State<EmployerPagesController> createState() =>
+  ConsumerState<EmployerPagesController> createState() =>
       _EmployerPagesControllerState();
 }
 
-class _EmployerPagesControllerState extends State<EmployerPagesController> {
+class _EmployerPagesControllerState
+    extends ConsumerState<EmployerPagesController> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = <Widget>[
-    PostedJobsPage(),
-    ApplicationsPages(),
+    EmployerHomepage(),
     SettingsPage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    final empjobState = ref.read(empjobNotifierProvider.notifier);
+
+    empjobState.fetchJobs();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -46,10 +55,6 @@ class _EmployerPagesControllerState extends State<EmployerPagesController> {
               label: 'Jobs',
             ),
             BottomNavigationBarItem(
-              icon: Icon(AppIcons.application),
-              label: 'Application',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(AppIcons.person),
               label: 'Settings',
             ),
@@ -61,10 +66,6 @@ class _EmployerPagesControllerState extends State<EmployerPagesController> {
             BottomNavigationBarItem(
               icon: Icon(AppIcons.work),
               label: 'Jobs',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(AppIcons.application),
-              label: 'Application',
             ),
             BottomNavigationBarItem(
               icon: Icon(AppIcons.person),

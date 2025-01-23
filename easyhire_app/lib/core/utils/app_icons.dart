@@ -15,4 +15,5 @@ abstract class AppIcons {
   static const application = Icons.document_scanner;
   static const job = Icons.work;
   static const setting = Icons.settings;
+  static const tick = Icons.check_circle_rounded;
 }

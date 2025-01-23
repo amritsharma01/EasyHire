@@ -25,8 +25,9 @@ class SettingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return PlatformScaffold(
-        appBar: PlatformAppBar(title: const AppText('Settings & Privacy')),
+    final userState = ref.read(userNotifierProvider);
+    return Scaffold(
+        appBar: AppBar(title: const AppText('Settings & Privacy')),
         body: ListView(
             physics: Get.scrollPhysics,
             padding: EdgeInsets.zero,
@@ -46,75 +47,82 @@ class SettingsPage extends ConsumerWidget {
               )),
               _subtitle('Content & Display'),
               Mycard(
-                  child: Column(
-                children: [
-                  // _settinglisttile(
-                  //     title: 'Notification',
-                  //     icon: Get.notification,
-                  //     onTap: () => Get.to(const NotificationPage())),
-                  // _settinglisttile(
-                  //     title: 'Clear Cache',
-                  //     icon: Get.delete,
-                  //     onTap: () async {
-                  //       imageCache.clear();
-                  //       imageCache.clearLiveImages();
-                  //       final box = ref.read(storageProvider);
-                  //       final mySavedAccount =
-                  //           await box.get(HiveKey.savedAccounts);
-                  //       final mySelectedAccount =
-                  //           await box.get(HiveKey.selectedAccount);
-                  //       final apper = await box.get(HiveKey.appearence);
-                  //       await box.clear();
-                  //       await box.set(HiveKey.savedAccounts, mySavedAccount);
-                  //       await box.set(
-                  //           HiveKey.selectedAccount, mySelectedAccount);
-                  //       await box.set(HiveKey.appearence, apper);
-                  //       Get.toast("Cleared");
-                  //     }),
-                  _settinglisttile(
-                      title: "Appearence",
-                      icon: AppIcons.menu,
-                      onTap: () {
-                        Get.to(const AppearancePage());
-                      }),
+                  radius: 30,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      children: [
+                        // _settinglisttile(
+                        //     title: 'Notification',
+                        //     icon: Get.notification,
+                        //     onTap: () => Get.to(const NotificationPage())),
+                        // _settinglisttile(
+                        //     title: 'Clear Cache',
+                        //     icon: Get.delete,
+                        //     onTap: () async {
+                        //       imageCache.clear();
+                        //       imageCache.clearLiveImages();
+                        //       final box = ref.read(storageProvider);
+                        //       final mySavedAccount =
+                        //           await box.get(HiveKey.savedAccounts);
+                        //       final mySelectedAccount =
+                        //           await box.get(HiveKey.selectedAccount);
+                        //       final apper = await box.get(HiveKey.appearence);
+                        //       await box.clear();
+                        //       await box.set(HiveKey.savedAccounts, mySavedAccount);
+                        //       await box.set(
+                        //           HiveKey.selectedAccount, mySelectedAccount);
+                        //       await box.set(HiveKey.appearence, apper);
+                        //       Get.toast("Cleared");
+                        //     }),
+                        _settinglisttile(
+                            title: "Appearence",
+                            icon: AppIcons.menu,
+                            onTap: () {
+                              Get.to(const AppearancePage());
+                            }),
 
-                  _settinglisttile(
-                      title: "Bookmarks",
-                      icon: AppIcons.bookmark,
-                      onTap: () {
-                        Get.to(const BookmarkPage());
-                      }),
+                        if (userState.value!.isJobseeker)
+                          _settinglisttile(
+                              title: "Bookmarks",
+                              icon: AppIcons.bookmark,
+                              onTap: () {
+                                Get.to(const BookmarkPage());
+                              }),
 
-                  if (kDebugMode)
-                    _settinglisttile(
-                        title: 'Change Platform',
-                        icon: Icons.mobile_friendly,
-                        onTap: () {
-                          if (platformProvider.value ==
-                              PlatformStyle.Material) {
-                            platformProvider.value = PlatformStyle.Cupertino;
-                            Get.toast('Switching IOS View');
-                            return;
-                          }
-                          platformProvider.value = PlatformStyle.Material;
-                          Get.toast('Switching Android View');
-                        }),
-                  30.verticalSpace,
-                  AppButton(
-                    onTap: () async {
-                      final loginNotifierProvider =
-                          ref.read(loginProvider.notifier);
-                      final logoutNotifierProvider =
-                          ref.read(userNotifierProvider.notifier);
-                      await loginNotifierProvider.logout();
-                      await logoutNotifierProvider.clearUserProfile();
-                      Get.snackbar("logged Out");
-                    },
-                    text: "Logout",
-                    bgcolor: Colors.redAccent.o8,
-                  )
-                ],
-              )),
+                        if (kDebugMode)
+                          _settinglisttile(
+                              title: 'Change Platform',
+                              icon: Icons.mobile_friendly,
+                              onTap: () {
+                                if (platformProvider.value ==
+                                    PlatformStyle.Material) {
+                                  platformProvider.value =
+                                      PlatformStyle.Cupertino;
+                                  Get.toast('Switching IOS View');
+                                  return;
+                                }
+                                platformProvider.value = PlatformStyle.Material;
+                                Get.toast('Switching Android View');
+                              }),
+                        30.verticalSpace,
+                        AppButton(
+                          radius: 20,
+                          onTap: () async {
+                            final loginNotifierProvider =
+                                ref.read(loginProvider.notifier);
+                            final logoutNotifierProvider =
+                                ref.read(userNotifierProvider.notifier);
+                            await loginNotifierProvider.logout();
+                            await logoutNotifierProvider.clearUserProfile();
+                            Get.snackbar("logged Out");
+                          },
+                          text: "Logout",
+                          bgcolor: Get.primaryColor,
+                        )
+                      ],
+                    ),
+                  )),
             ]));
   }
 

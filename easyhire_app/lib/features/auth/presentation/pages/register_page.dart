@@ -27,7 +27,9 @@ class RegisterPage extends ConsumerWidget {
     final mailValidator = ref.read(emailValidator);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: key,

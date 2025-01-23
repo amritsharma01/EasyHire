@@ -47,7 +47,7 @@ class AppListTile extends StatelessWidget {
           color: backgroundColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(radius).rt),
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6).rt,
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4).rt,
           elevation: 0,
           child: Padding(
             padding: contentPadding ?? EdgeInsets.zero,

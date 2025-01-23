@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 final class AppColors {
-  static const Color primary = Color(0xffa6252d);
+  static const Color primary = Color.fromARGB(255, 99, 141, 175);
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);
   static const Color iosBlack = CupertinoColors.darkBackgroundGray;
   static const Color iosWhite = CupertinoColors.lightBackgroundGray;
@@ -14,4 +15,6 @@ final class AppColors {
   static const Color titleColor = Color(0xff627485);
   static const Color borderColor = Color(0xffDCDCDC);
   static const Color blue = Color(0xff0038FF);
+  static Color lightgrey = Colors.grey.shade100;
+  static Color darkgrey = Colors.grey.shade900;
 }

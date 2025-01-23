@@ -82,6 +82,7 @@ abstract final class Get {
   static Color get unselectedWidgetColor => _theme.unselectedWidgetColor;
   static Color get disabledColor => _theme.disabledColor;
   static Color get primaryColor => _theme.primaryColor;
+  static Color get cardColor => _theme.cardColor;
 
   static Color get _iosScaffoldColor =>
       isDark ? AppColors.iosBlack : AppColors.iosWhite;

@@ -20,7 +20,7 @@ class Mycard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: color ?? Colors.transparent,
+        color: color ?? Theme.of(context).cardColor,
         elevation: 0,
         margin: margin ?? const EdgeInsets.symmetric(horizontal: 9).r,
         shape: RoundedRectangleBorder(

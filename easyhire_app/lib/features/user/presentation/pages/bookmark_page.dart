@@ -17,7 +17,6 @@ class BookmarkPage extends ConsumerWidget {
       appBar: PlatformAppBar(title: AppText("Bookmarked Jobs")),
       body: ListView.builder(
           itemCount: bookmarkNotifier.jobList.length,
-          padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10).r,
           itemBuilder: (context, index) {
             return JobCard(bookmarkNotifier.jobList[index]);
           }),

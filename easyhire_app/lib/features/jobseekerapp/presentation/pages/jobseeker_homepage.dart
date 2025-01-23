@@ -1,3 +1,4 @@
+import 'package:easyhire_app/core/extensions/int.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/textWidgets/app_text.dart';
 import 'package:easyhire_app/features/jobseekerapp/presentation/providers/jobs_dependency_provider.dart';
 import 'package:easyhire_app/features/jobseekerapp/presentation/widgets/common_appbar.dart';
@@ -37,11 +38,16 @@ class JobseekerHomepage extends ConsumerWidget {
         },
         skipLoadingOnRefresh: false,
         data: (jobList) {
-          return ListView.builder(
-              shrinkWrap: true,
-              physics: Get.scrollPhysics,
-              itemCount: jobList.length,
-              itemBuilder: (context, index) => JobCard(jobList[index]!));
+          return Column(
+            children: [
+              5.verticalGap,
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: Get.scrollPhysics,
+                  itemCount: jobList.length,
+                  itemBuilder: (context, index) => JobCard(jobList[index]!)),
+            ],
+          );
         },
       ),
     );

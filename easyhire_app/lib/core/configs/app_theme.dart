@@ -16,7 +16,7 @@ final class AppThemes {
         primaryIconTheme: Icontheme.darkIconTheme,
         primaryColor: AppColors.primary,
         colorScheme: const ColorScheme.dark(primary: AppColors.primary),
-        scaffoldBackgroundColor: AppColors.black,
+        scaffoldBackgroundColor: AppColors.darkgrey,
         textTheme: TextThemes.darkTextTheme,
         iconTheme: Icontheme.darkIconTheme,
         switchTheme: SwitchThemeData(
@@ -63,7 +63,7 @@ final class AppThemes {
           BottomSheetThemeData(backgroundColor: AppColors.transparent),
       colorScheme: const ColorScheme.light(
           brightness: Brightness.light, primary: AppColors.primary),
-      scaffoldBackgroundColor: AppColors.white,
+      scaffoldBackgroundColor: AppColors.lightgrey,
       iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
               iconColor:
@@ -73,7 +73,7 @@ final class AppThemes {
           toolbarHeight: 45.h,
           centerTitle: true,
           titleTextStyle: TextThemes.primaryTextTheme.bodyMedium!.px18,
-          backgroundColor: AppColors.white,
+          backgroundColor: AppColors.primary,
           actionsIconTheme: IconThemeData(color: AppColors.black, size: 18.sp),
           iconTheme: IconThemeData(size: 23.sp, color: AppColors.black)));
 
@@ -115,7 +115,7 @@ final class TextThemes {
   }
 
   static TextTheme get darkTextTheme {
-    Color textColor = AppColors.white;
+    Color textColor = AppColors.white.o8;
     return TextTheme(
         bodyLarge: AppTextStyles.bodyLarge.copyWith(color: textColor),
         bodyMedium: AppTextStyles.bodyMedium.copyWith(color: textColor),
@@ -123,7 +123,7 @@ final class TextThemes {
   }
 
   static TextTheme get primaryTextTheme {
-    Color textColor = AppColors.black;
+    Color textColor = AppColors.black.o8;
     return TextTheme(
         bodyLarge: AppTextStyles.bodyLarge.copyWith(color: textColor),
         bodyMedium: AppTextStyles.bodyMedium.copyWith(color: textColor),

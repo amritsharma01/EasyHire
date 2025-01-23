@@ -59,7 +59,7 @@ class _JobseekerPagesControllerState
             ),
             BottomNavigationBarItem(
               icon: Icon(AppIcons.application),
-              label: 'applications',
+              label: 'Applications',
             ),
             BottomNavigationBarItem(
               icon: Icon(AppIcons.setting),

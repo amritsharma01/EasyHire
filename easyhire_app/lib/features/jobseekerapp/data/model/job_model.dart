@@ -7,7 +7,8 @@ class JobModel extends JobEntity {
     required super.description,
     required super.salary,
     required super.createdAt,
-    required super.employer,
+    required super.employerName,
+    required super.empId,
   });
 
   factory JobModel.fromJson(Map<String, dynamic> json) {
@@ -21,15 +22,19 @@ class JobModel extends JobEntity {
 
     final createdAt = json["created_at"] as String;
 
-    final employer = json["employer"] as int;
+    final employerName = json["employer_name"] as String;
+
+    final empId = json["employer"] as int;
 
     return JobModel(
-        id: id,
-        title: title,
-        description: description,
-        salary: salary,
-        createdAt: createdAt,
-        employer: employer);
+      id: id,
+      title: title,
+      description: description,
+      salary: salary,
+      createdAt: createdAt,
+      employerName: employerName,
+      empId: empId,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -39,7 +44,8 @@ class JobModel extends JobEntity {
       'description': description,
       'salary': salary,
       'created_at': createdAt,
-      'employer': employer
+      'employer_name': employerName,
+      'empId': empId,
     };
   }
 }

@@ -38,7 +38,7 @@ class AppButton extends StatelessWidget {
     Color? textcolor = textColor;
 
     Color? buttonColor = bgcolor;
-    final textstyle = Get.bodyMedium.px14.copyWith(color: AppColors.white);
+    final textstyle = Get.bodyMedium.px12.copyWith(color: AppColors.white);
     if (transparentColor) {
       buttonColor = buttonColor ?? Get.primaryColor;
       textcolor = textcolor ?? Get.scaffoldBackgroundColor;

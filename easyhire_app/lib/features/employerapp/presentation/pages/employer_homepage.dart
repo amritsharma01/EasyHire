@@ -1,13 +1,45 @@
+import 'package:easyhire_app/features/auth/presentation/widgets/textWidgets/app_text.dart';
+import 'package:easyhire_app/features/jobseekerapp/presentation/widgets/common_appbar.dart';
+import 'package:easyhire_app/features/jobseekerapp/presentation/widgets/job_card.dart';
+import 'package:easyhire_app/features/user/presentation/widgets/error_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/services/get.dart';
+import '../../../jobseekerapp/presentation/widgets/job_card_loading.dart';
+import '../providers/emp_dependency_providers.dart';
 
-class EmployerHomepage extends StatelessWidget {
+class EmployerHomepage extends ConsumerWidget {
   const EmployerHomepage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return PlatformScaffold(
-      body: Center(child: Text("EmployerHomepage")),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final empfetchJoblist = ref.watch(empjobNotifierProvider);
+    return Scaffold(
+      appBar: commonAppBar(
+        AppText("All Posted Jobs"),
+      ),
+      body: empfetchJoblist.when(
+        loading: () {
+          return ListView.builder(
+              shrinkWrap: true,
+              physics: Get.scrollPhysics,
+              itemCount: 8,
+              itemBuilder: (context, index) => JobCardLoading());
+        },
+        error: (error, stackTrace) {
+          return ErrorButton(
+            provider: empjobNotifierProvider,
+          );
+        },
+        skipLoadingOnRefresh: false,
+        data: (jobList) {
+          return ListView.builder(
+              shrinkWrap: true,
+              physics: Get.scrollPhysics,
+              itemCount: jobList.length,
+              itemBuilder: (context, index) => JobCard(jobList[index]!));
+        },
+      ),
     );
   }
 }
