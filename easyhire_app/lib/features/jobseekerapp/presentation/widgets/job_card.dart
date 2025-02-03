@@ -1,4 +1,3 @@
-import 'package:easyhire_app/core/extensions/color_extensions.dart';
 import 'package:easyhire_app/core/extensions/int.dart';
 import 'package:easyhire_app/core/extensions/padding.dart';
 import 'package:easyhire_app/core/extensions/text_style_extensions.dart';
@@ -14,7 +13,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../../core/configs/app_colors.dart';
 import '../../../../../core/utils/app_icons.dart';
 import '../../../../core/services/get.dart';
 import '../../../auth/presentation/widgets/textWidgets/app_text.dart';
@@ -60,21 +58,25 @@ class JobCard extends ConsumerWidget {
                 AppText('Salary: ${job.salary}',
                     style: Get.bodySmall.px12.copyWith(color: Colors.grey)),
                 Skeleton.shade(
-                  child: AppButton(
-                      height: 30.ht,
-                      width: 100.wt,
-                      onTap: () async {
-                        final receivedAppState =
-                            ref.read(receivedAppnNotifierProvicer.notifier);
-                        userRole.value!.isJobseeker
-                            ? Get.to(JobApplyPage(job: job))
-                            : await receivedAppState.fetchApplications(job.id);
-                        Get.to(ApplicationsReceivedPage());
-                      },
-                      text: userRole.value!.isJobseeker
-                          ? "Apply"
-                          : "Applicaitons"),
-                )
+                    child: userRole.value!.isJobseeker
+                        ? AppButton(
+                            height: 30.ht,
+                            width: 100.wt,
+                            onTap: () async {
+                              Get.to(JobApplyPage(job: job));
+                            },
+                            text: "Apply")
+                        : AppButton(
+                            height: 30.ht,
+                            width: 120.wt,
+                            onTap: () async {
+                              final receivedAppState = ref
+                                  .read(receivedAppnNotifierProvicer.notifier);
+
+                              await receivedAppState.fetchApplications(job.id);
+                              Get.to(ApplicationsReceivedPage());
+                            },
+                            text: "Applications"))
               ],
             ),
           ],

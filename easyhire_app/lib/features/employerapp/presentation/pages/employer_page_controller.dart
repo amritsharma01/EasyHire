@@ -3,36 +3,24 @@ import 'package:easyhire_app/features/user/presentation/pages/settings_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../core/services/get.dart';
 import '../../../../core/utils/app_icons.dart';
-import '../providers/emp_dependency_providers.dart';
 
-class EmployerPagesController extends ConsumerStatefulWidget {
+class EmployerPagesController extends StatefulWidget {
   const EmployerPagesController({super.key});
 
   @override
-  ConsumerState<EmployerPagesController> createState() =>
+  State<EmployerPagesController> createState() =>
       _EmployerPagesControllerState();
 }
 
-class _EmployerPagesControllerState
-    extends ConsumerState<EmployerPagesController> {
+class _EmployerPagesControllerState extends State<EmployerPagesController> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = <Widget>[
     EmployerHomepage(),
     SettingsPage(),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    final empjobState = ref.read(empjobNotifierProvider.notifier);
-
-    empjobState.fetchJobs();
-  }
 
   void _onItemTapped(int index) {
     setState(() {

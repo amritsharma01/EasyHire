@@ -35,13 +35,14 @@ class JobStateNotifier extends StateNotifier<AsyncValue<List<JobEntity?>>> {
 
   JobStateNotifier(
     this._fetchJobUsecase,
-  ) : super(const AsyncValue.loading());
+  ) : super(const AsyncValue.loading()) {
+    fetchJobs();
+  }
 
   Future<void> fetchJobs() async {
-    state = const AsyncValue.loading();
     try {
       final jobsList = await _fetchJobUsecase.call();
-
+      print(jobsList);
       state = AsyncValue.data(jobsList);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.fromString("error"));

@@ -36,7 +36,7 @@ final registerUsecaseProvider = Provider<RegisterUseCase>((ref) {
   return RegisterUseCase(registerRepoImpl);
 });
 
-final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
+final loginProvider = StateNotifierProvider<LoginNotifier, AsyncValue>(
   (ref) {
     final loginusecaseProvider = ref.read(loginUsecaseProvider);
     final tokenStorageProvider = ref.read(secureStorageProvider);
@@ -45,7 +45,7 @@ final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
 );
 
 final registerProvider =
-    StateNotifierProvider<RegisterNotifier, RegisterState>((ref) {
+    StateNotifierProvider<RegisterNotifier, AsyncValue>((ref) {
   final registerUseCase = ref.read(registerUsecaseProvider);
   return RegisterNotifier(registerUseCase);
 });

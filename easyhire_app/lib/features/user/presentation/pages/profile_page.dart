@@ -1,10 +1,14 @@
-import 'package:easyhire_app/core/extensions/padding.dart';
+import 'package:easyhire_app/core/extensions/color_extensions.dart';
+import 'package:easyhire_app/core/extensions/int.dart';
+import 'package:easyhire_app/core/extensions/text_style_extensions.dart';
 import 'package:easyhire_app/features/user/presentation/provider/user_dependency_providers.dart';
+
 import 'package:easyhire_app/features/user/presentation/widgets/error_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/services/get.dart';
 import '../../../auth/presentation/widgets/textWidgets/app_text.dart';
 
 class ProfilePage extends ConsumerWidget {
@@ -14,50 +18,56 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userState = ref.watch(userNotifierProvider);
 
-    return PlatformScaffold(
-      appBar: PlatformAppBar(
-        title: AppText(
-          "Profile",
+    return Scaffold(
+        appBar: AppBar(
+          title: AppText(
+            "Profile",
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0).rt,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
-            userState.when(data: (user) {
-              return Column(
-                children: [
-                  ProfileDetailRow(
-                    icon: Icons.person,
-                    label: "Name",
-                    value: user!.name,
-                  ),
-                  ProfileDetailRow(
-                    icon: Icons.email,
-                    label: "Email",
-                    value: user.email,
-                  ),
-                  ProfileDetailRow(
-                    icon: Icons.work,
-                    label: "Role",
-                    value: user.isEmployer ? "Employer" : "Jobseeker",
-                  ),
-                ],
-              );
-            }, error: (error, stackTrace) {
-              return ErrorButton(
-                provider: userNotifierProvider,
-              );
-            }, loading: () {
-              return CircularProgressIndicator.adaptive();
-            })
-            // Add more profile details here
-          ],
-        ),
-      ),
-    );
+        body: userState.when(data: (user) {
+          return ListView(
+            children: [
+              10.verticalGap,
+              Center(
+                child: CircleAvatar(
+                  backgroundColor: Get.primaryColor.o4,
+                  radius: 90,
+                ),
+              ),
+              10.verticalGap,
+              AppText(
+                user!.name,
+                textAlign: TextAlign.center,
+                style: Get.bodyLarge.titleColor.px20,
+              ),
+              3.verticalGap,
+              AppText(
+                user.email,
+                textAlign: TextAlign.center,
+                style: Get.bodySmall.px12,
+              ),
+              AppText(
+                user.isJobseeker.toString(),
+                textAlign: TextAlign.center,
+                style: Get.bodySmall.px12,
+              ),
+              AppText(
+                user.isEmployer.toString(),
+                textAlign: TextAlign.center,
+                style: Get.bodySmall.px12,
+              ),
+            ],
+          );
+        }, error: (error, stackTrace) {
+          return ErrorButton(
+            provider: userNotifierProvider,
+          );
+        }, loading: () {
+          return CircularProgressIndicator.adaptive();
+        })
+        // Add more profile details here
+
+        );
   }
 }
 

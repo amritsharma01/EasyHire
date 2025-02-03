@@ -1,3 +1,4 @@
+import 'package:easyhire_app/core/extensions/padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,15 +14,18 @@ class ErrorButton extends ConsumerWidget {
     return Center(
       child: Column(children: [
         10.verticalSpace,
-        AppText("Unexpected Error Occur"),
+        AppText("Unexpected Error Occured!"),
         5.verticalSpace,
-        AppButton(
-            onTap: () {
-              if (provider != null) {
-                ref.invalidate(provider!);
-              }
-            },
-            text: "Reload")
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20).rt,
+          child: AppButton(
+              onTap: () {
+                if (provider != null) {
+                  ref.invalidate(provider!);
+                }
+              },
+              text: "Reload"),
+        )
       ]),
     );
   }

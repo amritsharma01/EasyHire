@@ -35,8 +35,8 @@ final passwordValidator = Provider<MultiValidator>((ref) => MultiValidator([
       //     errorText: 'passwords must have at least one Capital Letter')
     ]));
 
-final usernameValidator = Provider<MultiValidator>((ref) => MultiValidator([
-      RequiredValidator(errorText: 'username is required'),
+final emptyfieldValidator = Provider<MultiValidator>((ref) => MultiValidator([
+      RequiredValidator(errorText: 'required..'),
       // MinLengthValidator(8,
       //     errorText: 'password must be at least 8 digits long'),
       // PatternValidator(r'(?=.*?[@#$%^&*()!])',
@@ -47,14 +47,14 @@ final usernameValidator = Provider<MultiValidator>((ref) => MultiValidator([
       //     errorText: 'passwords must have at least one Capital Letter')
     ]));
 
-final cvLetterValidator = Provider<MultiValidator>((ref) => MultiValidator([
-      RequiredValidator(errorText: 'Cover letter is required'),
+final salaryValidator = Provider<MultiValidator>((ref) => MultiValidator([
+      RequiredValidator(errorText: 'required..'),
       // MinLengthValidator(8,
       //     errorText: 'password must be at least 8 digits long'),
-      // PatternValidator(r'(?=.*?[@#$%^&*()!])',
-      //     errorText: 'Password must be of correct format'),
+      //PatternValidator(r'(?=.*?[@#$%^&*()!])',
+      //errorText: 'salary must be of correct format'),
       // PatternValidator(r'(?=.*?[1234567890])',
       //     errorText: 'passwords must have at least one neumeric character'),
-      // PatternValidator(r'(?=.*?[QWERTYUIOPASDFGHJKLZXCVBNM])',
-      //     errorText: 'passwords must have at least one Capital Letter')
+      PatternValidator(r'(?=.*?[1234567890])',
+          errorText: 'salary must be completely numeric')
     ]));

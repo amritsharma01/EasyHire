@@ -5,7 +5,7 @@ class JobEntity {
   final String salary;
   final String createdAt;
   final String employerName;
-  final int empId;
+  //final int empId;
 
   JobEntity({
     required this.id,
@@ -13,7 +13,7 @@ class JobEntity {
     required this.description,
     required this.salary,
     required this.createdAt,
-    required this.empId,
+    //required this.empId,
     required this.employerName,
   });
 }

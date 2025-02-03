@@ -3,23 +3,19 @@ import 'package:easyhire_app/features/user/presentation/pages/settings_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../core/services/get.dart';
 import '../../../../core/utils/app_icons.dart';
-import '../providers/jobs_dependency_provider.dart';
 import 'applied_jobs_page.dart';
 
-class JobseekerPagesController extends ConsumerStatefulWidget {
+class JobseekerPagesController extends StatefulWidget {
   const JobseekerPagesController({super.key});
 
   @override
-  ConsumerState<JobseekerPagesController> createState() =>
+  State<JobseekerPagesController> createState() =>
       _JobseekerPagesControllerState();
 }
 
-class _JobseekerPagesControllerState
-    extends ConsumerState<JobseekerPagesController> {
+class _JobseekerPagesControllerState extends State<JobseekerPagesController> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = <Widget>[
@@ -28,14 +24,14 @@ class _JobseekerPagesControllerState
     const SettingsPage(),
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    final jobState = ref.read(jobNotifierProvider.notifier);
-    final appliedJobsState = ref.read(appliedjobsNotifierProvider.notifier);
-    jobState.fetchJobs();
-    appliedJobsState.fetchJobs();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   final jobState = ref.read(jobNotifierProvider.notifier);
+  //   final appliedJobsState = ref.read(appliedjobsNotifierProvider.notifier);
+  //   jobState.fetchJobs();
+  //   appliedJobsState.fetchJobs();
+  // }
 
   void _onItemTapped(int index) {
     setState(() {

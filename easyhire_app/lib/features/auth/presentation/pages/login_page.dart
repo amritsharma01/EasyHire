@@ -6,9 +6,9 @@ import 'package:easyhire_app/features/auth/presentation/providers/key_provider.d
 import 'package:easyhire_app/features/auth/presentation/providers/text_field_provider.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/buttonWidgets/button.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/formWidget/form_field.dart';
+import 'package:easyhire_app/features/auth/presentation/widgets/specialWidgets/progress_indicator.dart';
 import 'package:easyhire_app/features/user/presentation/provider/user_dependency_providers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/services/get.dart';
 import '../../../../core/utils/assets_path.dart';
@@ -23,7 +23,7 @@ class LoginPage extends ConsumerWidget {
     final usernameController = ref.watch(controller("username"));
     final passwordController = ref.watch(controller("password"));
     final key = ref.read(formkey('login'));
-    final nameValidator = ref.read(usernameValidator);
+    final nameValidator = ref.read(emptyfieldValidator);
     final passValdator = ref.read(passwordValidator);
     // final TextEditingController usernameController = TextEditingController();
     // final TextEditingController passwordController = TextEditingController();
@@ -37,9 +37,9 @@ class LoginPage extends ConsumerWidget {
               80.verticalGap,
               Image.asset(
                 Assets.images.logo,
-                height: 100.ht,
+                height: 50.ht,
               ),
-              20.verticalGap,
+              30.verticalGap,
               AppTextFormField(
                 hintText: "username",
                 controller: usernameController,
@@ -55,31 +55,62 @@ class LoginPage extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20).rt,
                 child: AppButton(
-                    onTap: () async {
-                      final username = usernameController.text;
-                      final password = passwordController.text;
-                      final loginNotiProvider =
-                          ref.read(loginProvider.notifier);
+                  onTap: () async {
+                    final username = usernameController.text;
+                    final password = passwordController.text;
+                    final loginNotiProvider = ref.read(loginProvider.notifier);
+
+                    final isValidated = key.currentState!.validate();
+                    if (isValidated) {
+                      await loginNotiProvider.login(username, password);
+                      // await loginNotiProvider.login("employer", "mypassword");
+                      final loginState =
+                          ref.read(loginProvider); // Read state after login
                       final userNotifier =
                           ref.watch(userNotifierProvider.notifier);
-
-                      final isValidated = key.currentState!.validate();
-                      if (isValidated) {
-                        try {
-                          await loginNotiProvider.login(username, password);
-                          // await loginNotiProvider.login(
-                          //     "employer", "mypassword");
-                          // await loginNotiProvider.login("sharma", "11111111");
-                          await userNotifier.fetchUserProfile();
-                          Get.off(PagesController());
-                        } on Exception {
-                          Get.snackbar("login ma problem");
-                        }
+                      if (loginState.hasError) {
+                        Get.snackbar("Invalid username or password.");
+                      } else if (loginState.isLoading) {
+                        return AppProgressIndicator();
+                      } else {
+                        await userNotifier.fetchUserProfile();
+                        Get.off(PagesController());
                       }
-                    },
-                    text: "Login"),
+                    }
+                  },
+                  text: "Login",
+                ),
               ),
-              10.verticalGap,
+              // 10.verticalGap,
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20).rt,
+              //   child: AppButton(
+              //     onTap: () async {
+              //       final username = usernameController.text;
+              //       final password = passwordController.text;
+              //       final loginNotiProvider = ref.read(loginProvider.notifier);
+
+              //       final isValidated = key.currentState!.validate();
+              //       if (!isValidated) {
+              //         await loginNotiProvider.login("sharma", "11111111");
+              //         final loginState =
+              //             ref.read(loginProvider); // Read state after login
+              //         final userNotifier =
+              //             ref.watch(userNotifierProvider.notifier);
+
+              //         if (loginState.hasError) {
+              //           Get.snackbar("Invalid username or password.");
+              //         } else if (loginState.isLoading) {
+              //           return AppProgressIndicator();
+              //         } else {
+              //           await userNotifier.fetchUserProfile();
+              //           Get.off(PagesController());
+              //         }
+              //       }
+              //     },
+              //     text: "Seeker Login",
+              //   ),
+              // ),
               AppTextButton(
                 text: "Create new Account",
                 onPressed: () {

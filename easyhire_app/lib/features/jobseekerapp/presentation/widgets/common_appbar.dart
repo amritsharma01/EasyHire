@@ -10,6 +10,7 @@ import 'notification_icon.dart';
 
 AppBar commonAppBar(Widget title) {
   return AppBar(
+    automaticallyImplyLeading: false,
     key: Get.key(title),
     title: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5).rt, child: title),

@@ -41,8 +41,9 @@ abstract final class Get {
 
 //Platform Specific scrolling haru garna ko laagi
   static bool get isIOS => platformProvider.value == PlatformStyle.Cupertino;
-  static ScrollPhysics get scrollPhysics =>
-      isIOS ? const BouncingScrollPhysics() : const ClampingScrollPhysics();
+  static ScrollPhysics get scrollPhysics => isIOS
+      ? BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics())
+      : const ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
   static ScrollBehavior get scrollBehaviour =>
       isIOS ? const CupertinoScrollBehavior() : const MaterialScrollBehavior();
   static TextSelectionControls get selectionControl => isIOS

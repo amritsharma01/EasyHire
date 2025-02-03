@@ -1,4 +1,5 @@
 import 'package:easyhire_app/core/extensions/color_extensions.dart';
+import 'package:easyhire_app/core/extensions/padding.dart';
 
 import 'package:easyhire_app/core/extensions/text_style_extensions.dart';
 import 'package:easyhire_app/core/core_service_providers.dart';
@@ -7,6 +8,8 @@ import 'package:easyhire_app/features/auth/presentation/providers/auth_dependenc
 import 'package:easyhire_app/features/auth/presentation/widgets/buttonWidgets/button.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/textWidgets/app_text.dart';
 import 'package:easyhire_app/features/auth/presentation/pages/appearance.dart';
+import 'package:easyhire_app/features/employerapp/presentation/providers/emp_dependency_providers.dart';
+import 'package:easyhire_app/features/jobseekerapp/presentation/providers/jobs_dependency_provider.dart';
 import 'package:easyhire_app/features/user/presentation/provider/user_dependency_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +26,40 @@ import 'profile_page.dart';
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
+  Widget _subtitle(title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8).r,
+      child: AppText("\t\t$title", style: Get.bodyMedium.disabledO5.px14),
+    );
+  }
+
+  Widget _settinglisttile(
+      {required String title,
+      required IconData icon,
+      double size = 20,
+      required VoidCallback onTap}) {
+    return AppListTile(
+        key: ValueKey(title),
+        onTap: onTap,
+        padding: const EdgeInsets.symmetric(vertical: 5).r,
+        leading: AppIcon(icon, size: size, color: Get.disabledColor.o6),
+        trailing: AppIcon(
+          AppIcons.rightCheveron,
+          color: Get.disabledColor.o6,
+          size: size,
+        ),
+        titleStyle: Get.bodyLarge.px16,
+        title: title);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userState = ref.read(userNotifierProvider);
     return Scaffold(
-        appBar: AppBar(title: const AppText('Settings & Privacy')),
+        appBar: AppBar(
+          title: const AppText('Settings & Privacy'),
+          automaticallyImplyLeading: false,
+        ),
         body: ListView(
             physics: Get.scrollPhysics,
             padding: EdgeInsets.zero,
@@ -105,50 +137,31 @@ class SettingsPage extends ConsumerWidget {
                                 platformProvider.value = PlatformStyle.Material;
                                 Get.toast('Switching Android View');
                               }),
-                        30.verticalSpace,
-                        AppButton(
-                          radius: 20,
-                          onTap: () async {
-                            final loginNotifierProvider =
-                                ref.read(loginProvider.notifier);
-                            final logoutNotifierProvider =
-                                ref.read(userNotifierProvider.notifier);
-                            await loginNotifierProvider.logout();
-                            await logoutNotifierProvider.clearUserProfile();
-                            Get.snackbar("logged Out");
-                          },
-                          text: "Logout",
-                          bgcolor: Get.primaryColor,
+                        20.verticalSpace,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5).rt,
+                          child: AppButton(
+                            radius: 20,
+                            onTap: () async {
+                              final loginNotifierProvider =
+                                  ref.read(loginProvider.notifier);
+                              final logoutNotifierProvider =
+                                  ref.read(userNotifierProvider.notifier);
+
+                              ref.invalidate(empjobNotifierProvider);
+                              ref.invalidate(jobNotifierProvider);
+                              await loginNotifierProvider.logout();
+                              await logoutNotifierProvider.clearUserProfile();
+
+                              Get.snackbar("logged Out");
+                            },
+                            text: "Logout",
+                            bgcolor: Get.primaryColor,
+                          ),
                         )
                       ],
                     ),
                   )),
             ]));
-  }
-
-  Widget _subtitle(title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8).r,
-      child: AppText("\t\t$title", style: Get.bodyMedium.disabledO5.px14),
-    );
-  }
-
-  Widget _settinglisttile(
-      {required String title,
-      required IconData icon,
-      double size = 20,
-      required VoidCallback onTap}) {
-    return AppListTile(
-        key: ValueKey(title),
-        onTap: onTap,
-        padding: const EdgeInsets.symmetric(vertical: 5).r,
-        leading: AppIcon(icon, size: size, color: Get.disabledColor.o6),
-        trailing: AppIcon(
-          AppIcons.rightCheveron,
-          color: Get.disabledColor.o6,
-          size: size,
-        ),
-        titleStyle: Get.bodyLarge.px16,
-        title: title);
   }
 }

@@ -1,8 +1,10 @@
 import 'package:easyhire_app/core/extensions/color_extensions.dart';
+import 'package:easyhire_app/core/extensions/int.dart';
 import 'package:easyhire_app/core/extensions/padding.dart';
+import 'package:easyhire_app/core/extensions/text_style_extensions.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/specialWidgets/progress_indicator.dart';
 import 'package:easyhire_app/features/auth/presentation/widgets/textWidgets/app_text.dart';
-import 'package:easyhire_app/features/jobseekerapp/domain/entity/job_entity.dart';
+import 'package:easyhire_app/features/employerapp/presentation/widgets/received_appn_card.dart';
 import 'package:easyhire_app/features/user/presentation/widgets/card.dart';
 import 'package:easyhire_app/features/user/presentation/widgets/error_button.dart';
 import 'package:flutter/material.dart';
@@ -30,25 +32,24 @@ class ApplicationsReceivedPage extends ConsumerWidget {
         return AppProgressIndicator();
       }, data: (appnlist) {
         if (appnlist.isEmpty) {
-          return AppText("No one applied for thi job");
+          return Center(
+              child: AppText("No one applied for this job till now!"));
         } else {
-          return ListView.builder(
-              itemCount: appnlist.length,
-              itemBuilder: (context, index) {
-                return Mycard(
-                    radius: 30.r,
-                    borderColor: Get.disabledColor,
-                    color: Get.disabledColor.o1,
-                    margin: EdgeInsets.all(5).rt,
-                    child: Column(
-                      children: [
-                        AppText(appnlist[index]!.userName),
-                        AppText(appnlist[index]!.userEmail),
-                        AppText(appnlist[index]!.jobTitle),
-                        AppText(appnlist[index]!.cvLetter),
-                      ],
-                    ));
-              });
+          return RefreshIndicator.adaptive(
+            onRefresh: () async {
+              ref.invalidate(receivedAppnNotifierProvicer);
+            },
+            child: ListView.builder(
+                physics: Get.scrollPhysics,
+                itemCount: appnlist.length,
+                itemBuilder: (context, index) {
+                  return ReceivedAppnCard(
+                      jobTitle: appnlist[index]!.jobTitle,
+                      userName: appnlist[index]!.userName,
+                      userEmail: appnlist[index]!.userEmail,
+                      cvLetter: appnlist[index]!.cvLetter);
+                }),
+          );
         }
       }),
     );

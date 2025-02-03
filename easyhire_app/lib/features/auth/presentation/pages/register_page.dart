@@ -1,16 +1,16 @@
-import 'package:easyhire_app/features/auth/presentation/providers/text_field_provider.dart';
-import 'package:easyhire_app/features/auth/presentation/widgets/buttonWidgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:easyhire_app/features/auth/presentation/providers/text_field_provider.dart';
+import 'package:easyhire_app/features/auth/presentation/widgets/buttonWidgets/button.dart';
+import 'package:easyhire_app/features/auth/presentation/widgets/specialWidgets/progress_indicator.dart';
 import 'package:easyhire_app/core/extensions/int.dart';
-import 'package:easyhire_app/features/auth/presentation/pages/login_page.dart';
+
 import 'package:easyhire_app/features/auth/presentation/widgets/formWidget/form_field.dart';
 import 'package:easyhire_app/core/services/get.dart';
 import '../../../../core/utils/assets_path.dart';
 import '../providers/auth_dependency_providers.dart';
 import '../providers/key_provider.dart';
-
-import '../widgets/specialWidgets/radio_button.dart';
+import '../widgets/specialWidgets/app_switch.dart';
 
 class RegisterPage extends ConsumerWidget {
   const RegisterPage({super.key});
@@ -22,7 +22,7 @@ class RegisterPage extends ConsumerWidget {
     final emailController = ref.watch(controller("signupemail"));
     final passwordController = ref.watch(controller("signuppassword"));
     final key = ref.read(formkey('register'));
-    final nameValidator = ref.read(usernameValidator);
+    final nameValidator = ref.read(emptyfieldValidator);
     final passValidator = ref.read(passwordValidator);
     final mailValidator = ref.read(emailValidator);
 
@@ -37,9 +37,9 @@ class RegisterPage extends ConsumerWidget {
             children: [
               Image.asset(
                 Assets.images.logo,
-                height: 100.ht,
+                height: 50.ht,
               ),
-              20.verticalGap,
+              30.verticalGap,
               AppTextFormField(
                 controller: usernameController,
                 hintText: "username",
@@ -58,8 +58,9 @@ class RegisterPage extends ConsumerWidget {
                 validator: passValidator.call,
               ),
               10.verticalGap,
-              AppRadioButton(
-                labels: ["Job Seeker", "Employer"],
+              AppSwitch(
+                label1: "Employer",
+                label2: "JobSeeker",
                 stateProvider: jobSeekerProvider,
               ),
               10.verticalGap,
@@ -73,27 +74,30 @@ class RegisterPage extends ConsumerWidget {
                       final username = usernameController.text;
                       final email = emailController.text;
                       final password = passwordController.text;
-                      final jobSeeker = ref.read(jobSeekerProvider);
-                      final employer = ref.read(employerProvider);
+                      final isJobSeeker =
+                          ref.read(jobSeekerProvider); // Read the correct value
                       final registerNotiProvider =
                           ref.read(registerProvider.notifier);
+                      final registerState = ref.read(registerProvider);
                       final isValidated = key.currentState!.validate();
 
                       if (isValidated) {
-                        try {
-                          await registerNotiProvider.register(
-                            username: username,
-                            email: email,
-                            password: password,
-                            isJobSeeker: jobSeeker,
-                            isEmployer: employer,
-                          );
-
-                          Get.to(LoginPage());
-                        } catch (e) {
-                          Get.snackbar(e.toString());
+                        await registerNotiProvider.register(
+                          username: username,
+                          email: email,
+                          password: password,
+                          isJobSeeker: isJobSeeker,
+                          isEmployer:
+                              !isJobSeeker, // Correctly toggle based on isJobSeeker
+                        );
+                        if (registerState.isLoading) {
+                          return AppProgressIndicator();
+                        } else if (registerState.hasError) {
+                          Get.snackbar("Unable to register");
+                        } else {
+                          Get.pop();
                         }
-                      } else {}
+                      }
                     },
                     text: "Register",
                   ),
@@ -107,5 +111,5 @@ class RegisterPage extends ConsumerWidget {
   }
 }
 
-final jobSeekerProvider = StateProvider<bool>((ref) => false);
-final employerProvider = StateProvider<bool>((ref) => false);
+final jobSeekerProvider =
+    StateProvider<bool>((ref) => true); // Default to Job Seeker

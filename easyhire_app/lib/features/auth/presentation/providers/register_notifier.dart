@@ -13,10 +13,10 @@ class RegisterState {
   });
 }
 
-class RegisterNotifier extends StateNotifier<RegisterState> {
+class RegisterNotifier extends StateNotifier<AsyncValue> {
   final RegisterUseCase registerUseCase;
 
-  RegisterNotifier(this.registerUseCase) : super(RegisterState());
+  RegisterNotifier(this.registerUseCase) : super(AsyncValue.data(null));
 
   Future<void> register({
     required String username,
@@ -25,19 +25,19 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
     required bool isJobSeeker,
     required bool isEmployer,
   }) async {
-    state = RegisterState(isLoading: true);
+    state = AsyncValue.loading();
 
     try {
-      final message = await registerUseCase.execute(
+      await registerUseCase.execute(
         username: username,
         email: email,
         password: password,
         isJobSeeker: isJobSeeker,
         isEmployer: isEmployer,
       );
-      state = RegisterState(successMessage: message.toString());
-    } catch (e) {
-      state = RegisterState(error: e.toString());
+      state = AsyncValue.data(null);
+    } catch (e, stackTrace) {
+      state = AsyncValue.error(e, stackTrace);
       rethrow;
     }
   }

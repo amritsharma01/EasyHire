@@ -2,7 +2,6 @@ import 'package:easyhire_app/features/jobseekerapp/presentation/widgets/job_card
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../auth/presentation/widgets/textWidgets/app_text.dart';
 import '../../../jobseekerapp/presentation/providers/jobs_dependency_provider.dart';

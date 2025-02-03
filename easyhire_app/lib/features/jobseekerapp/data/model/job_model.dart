@@ -8,7 +8,7 @@ class JobModel extends JobEntity {
     required super.salary,
     required super.createdAt,
     required super.employerName,
-    required super.empId,
+    //required super.empId,
   });
 
   factory JobModel.fromJson(Map<String, dynamic> json) {
@@ -24,7 +24,7 @@ class JobModel extends JobEntity {
 
     final employerName = json["employer_name"] as String;
 
-    final empId = json["employer"] as int;
+    // final empId = json["employer"] as int;
 
     return JobModel(
       id: id,
@@ -33,7 +33,7 @@ class JobModel extends JobEntity {
       salary: salary,
       createdAt: createdAt,
       employerName: employerName,
-      empId: empId,
+      //empId: empId,
     );
   }
 
@@ -45,7 +45,7 @@ class JobModel extends JobEntity {
       'salary': salary,
       'created_at': createdAt,
       'employer_name': employerName,
-      'empId': empId,
+      //'empId': empId,
     };
   }
 }

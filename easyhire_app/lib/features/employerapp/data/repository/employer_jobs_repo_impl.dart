@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../../../core/services/get.dart';
 import '../../domain/repositories/emp_job_repo.dart';
-import '../datasource/emp_jobs_remte_datasource.dart';
+import '../datasource/emp_jobs_remote_datasource.dart';
 
 class EmpJobRepoImpl implements EmpJobRepo {
   final EmpJobsRemoteDatasource _empJobsRemoteDatasource;

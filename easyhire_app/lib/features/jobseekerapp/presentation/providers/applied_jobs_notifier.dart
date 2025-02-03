@@ -8,7 +8,9 @@ class AppliedJobsStateNotifier
 
   AppliedJobsStateNotifier(
     this._fetchAppliedJobUsecase,
-  ) : super(const AsyncValue.loading());
+  ) : super(const AsyncValue.loading()) {
+    fetchJobs();
+  }
 
   Future<void> fetchJobs() async {
     state = const AsyncValue.loading();

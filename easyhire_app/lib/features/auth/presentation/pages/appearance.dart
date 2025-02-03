@@ -3,7 +3,7 @@ import 'package:easyhire_app/core/extensions/int.dart';
 import 'package:easyhire_app/core/extensions/text_style_extensions.dart';
 import 'package:easyhire_app/features/user/presentation/widgets/card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

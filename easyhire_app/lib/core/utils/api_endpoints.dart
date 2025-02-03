@@ -9,6 +9,7 @@ final class ApiEndpoints {
   static const profile = "api/auth/profile/";
   static String employerApplicaitons(int jobId) =>
       "api/jobs/employer/applications/$jobId/";
+  static String post = "api/jobs/post/";
   // static String verse(int chapterId) => "$chapter$chapterId/verses/";
   // static String particularVerse(int chapterId, int verseId) =>
   //     "${verse(chapterId)}$verseId/";
