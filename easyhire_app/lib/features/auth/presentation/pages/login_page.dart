@@ -63,7 +63,7 @@ class LoginPage extends ConsumerWidget {
                     final isValidated = key.currentState!.validate();
                     if (isValidated) {
                       await loginNotiProvider.login(username, password);
-                      // await loginNotiProvider.login("employer", "mypassword");
+                      //await loginNotiProvider.login("employer", "mypassword");
                       final loginState =
                           ref.read(loginProvider); // Read state after login
                       final userNotifier =
@@ -78,39 +78,69 @@ class LoginPage extends ConsumerWidget {
                       }
                     }
                   },
-                  text: "Login",
+                  text: " Login",
                 ),
               ),
-              // 10.verticalGap,
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20).rt,
-              //   child: AppButton(
-              //     onTap: () async {
-              //       final username = usernameController.text;
-              //       final password = passwordController.text;
-              //       final loginNotiProvider = ref.read(loginProvider.notifier);
+              10.verticalGap,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20).rt,
+                child: AppButton(
+                  onTap: () async {
+                    final username = usernameController.text;
+                    final password = passwordController.text;
+                    final loginNotiProvider = ref.read(loginProvider.notifier);
 
-              //       final isValidated = key.currentState!.validate();
-              //       if (!isValidated) {
-              //         await loginNotiProvider.login("sharma", "11111111");
-              //         final loginState =
-              //             ref.read(loginProvider); // Read state after login
-              //         final userNotifier =
-              //             ref.watch(userNotifierProvider.notifier);
+                    final isValidated = key.currentState!.validate();
+                    if (!isValidated) {
+                      //await loginNotiProvider.login(username, password);
+                      await loginNotiProvider.login("employer", "mypassword");
+                      final loginState =
+                          ref.read(loginProvider); // Read state after login
+                      final userNotifier =
+                          ref.watch(userNotifierProvider.notifier);
+                      if (loginState.hasError) {
+                        Get.snackbar("Invalid username or password.");
+                      } else if (loginState.isLoading) {
+                        return AppProgressIndicator();
+                      } else {
+                        await userNotifier.fetchUserProfile();
+                        Get.off(PagesController());
+                      }
+                    }
+                  },
+                  text: "Employer Login",
+                ),
+              ),
+              10.verticalGap,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20).rt,
+                child: AppButton(
+                  onTap: () async {
+                    final username = usernameController.text;
+                    final password = passwordController.text;
+                    final loginNotiProvider = ref.read(loginProvider.notifier);
 
-              //         if (loginState.hasError) {
-              //           Get.snackbar("Invalid username or password.");
-              //         } else if (loginState.isLoading) {
-              //           return AppProgressIndicator();
-              //         } else {
-              //           await userNotifier.fetchUserProfile();
-              //           Get.off(PagesController());
-              //         }
-              //       }
-              //     },
-              //     text: "Seeker Login",
-              //   ),
-              // ),
+                    final isValidated = key.currentState!.validate();
+                    if (!isValidated) {
+                      await loginNotiProvider.login("sharma", "11111111");
+                      final loginState =
+                          ref.read(loginProvider); // Read state after login
+                      final userNotifier =
+                          ref.watch(userNotifierProvider.notifier);
+
+                      if (loginState.hasError) {
+                        Get.snackbar("Invalid username or password.");
+                      } else if (loginState.isLoading) {
+                        return AppProgressIndicator();
+                      } else {
+                        await userNotifier.fetchUserProfile();
+                        Get.off(PagesController());
+                      }
+                    }
+                  },
+                  text: "Seeker Login",
+                ),
+              ),
               AppTextButton(
                 text: "Create new Account",
                 onPressed: () {

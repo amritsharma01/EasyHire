@@ -7,8 +7,8 @@ class EmpJobUsecase {
 
   EmpJobUsecase(this._empJobRepo);
 
-  Future<List<JobEntity>> call() async {
-    final response = await _empJobRepo.fetchJoblist();
+  Future<List<JobEntity>> call({String? query}) async {
+    final response = await _empJobRepo.fetchJoblist(query: query);
     return response;
   }
 }

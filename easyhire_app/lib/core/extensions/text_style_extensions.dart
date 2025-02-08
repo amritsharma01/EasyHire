@@ -5,6 +5,7 @@ import '../configs/app_colors.dart';
 import '../services/get.dart';
 
 extension SizeExtension on TextStyle {
+  TextStyle get px08 => copyWith(fontSize: 8.sp);
   TextStyle get px10 => copyWith(fontSize: 10.sp);
   TextStyle get px11 => copyWith(fontSize: 11.sp);
   TextStyle get px12 => copyWith(fontSize: 12.sp);

@@ -12,9 +12,9 @@ class EmpJobStateNotifier extends StateNotifier<AsyncValue<List<JobEntity?>>> {
     fetchJobs();
   }
 
-  Future<void> fetchJobs() async {
+  Future<void> fetchJobs({String? query}) async {
     try {
-      final jobsList = await _empJobUsecase.call();
+      final jobsList = await _empJobUsecase.call(query: query);
       print(jobsList);
       state = AsyncValue.data(jobsList);
     } catch (e) {

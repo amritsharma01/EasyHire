@@ -39,6 +39,13 @@ final empjobNotifierProvider =
   return EmpJobStateNotifier(empjobUsecase);
 });
 
+final filteredEmpjobNotifierProvider =
+    StateNotifierProvider<EmpJobStateNotifier, AsyncValue<List<JobEntity?>>>(
+        (ref) {
+  final empjobUsecase = ref.read(jobUsecaseProvider);
+  return EmpJobStateNotifier(empjobUsecase);
+});
+
 ////dependencies for fetching all applications for particular job
 final receivedApplRepoProvider = Provider<ReceivedApplRepo>((ref) {
   return ReceivedApplRepoImpl(ref.read(empjobRemoteDataSourceProvider));

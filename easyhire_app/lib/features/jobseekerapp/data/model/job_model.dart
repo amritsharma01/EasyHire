@@ -8,6 +8,7 @@ class JobModel extends JobEntity {
     required super.salary,
     required super.createdAt,
     required super.employerName,
+    required super.location,
     //required super.empId,
   });
 
@@ -24,6 +25,8 @@ class JobModel extends JobEntity {
 
     final employerName = json["employer_name"] as String;
 
+    final location = json["location"] as String;
+
     // final empId = json["employer"] as int;
 
     return JobModel(
@@ -33,6 +36,7 @@ class JobModel extends JobEntity {
       salary: salary,
       createdAt: createdAt,
       employerName: employerName,
+      location: location,
       //empId: empId,
     );
   }
@@ -45,6 +49,7 @@ class JobModel extends JobEntity {
       'salary': salary,
       'created_at': createdAt,
       'employer_name': employerName,
+      'location': location
       //'empId': empId,
     };
   }

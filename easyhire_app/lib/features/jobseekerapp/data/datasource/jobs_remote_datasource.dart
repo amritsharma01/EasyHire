@@ -23,9 +23,19 @@ class JobsRemoteDatasource {
 
   JobsRemoteDatasource(this.apiManager);
 
-  Future<List<JobModel>> fetchAvailableJobs() async {
+  Future<List<JobModel>> fetchAvailableJobs(
+      {String? query,
+      String? location,
+      String? salaryMin,
+      String? salaryMax}) async {
     List<JobModel> joblist = [];
-    final response = await apiManager.get(ApiEndpoints.joblist);
+    final response =
+        await apiManager.get(ApiEndpoints.joblist, queryParameters: {
+      if (query != null && query.isNotEmpty) "search": query,
+      if (location != null && location.isNotEmpty) "location": location,
+      if (salaryMin != null && salaryMin.isNotEmpty) "salary_min": salaryMin,
+      if (salaryMax != null && salaryMax.isNotEmpty) "salary_max": salaryMax,
+    });
     final list = response.data['results'];
 
     for (var i in list) {

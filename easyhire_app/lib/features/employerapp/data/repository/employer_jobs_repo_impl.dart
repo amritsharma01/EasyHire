@@ -12,9 +12,9 @@ class EmpJobRepoImpl implements EmpJobRepo {
   EmpJobRepoImpl(this._empJobsRemoteDatasource);
 
   @override
-  Future<List<JobModel>> fetchJoblist() async {
+  Future<List<JobModel>> fetchJoblist({String? query}) async {
     try {
-      return await _empJobsRemoteDatasource.fetchAvailableJobs();
+      return await _empJobsRemoteDatasource.fetchAvailableJobs(query: query);
     } on DioException catch (e) {
       debugPrint(e.message);
       Get.snackbar("Unexpected Error Occur");

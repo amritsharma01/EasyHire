@@ -13,9 +13,17 @@ class JobRepoImpl implements JobRepo {
   JobRepoImpl(this.jobRemoteDatasource);
 
   @override
-  Future<List<JobModel>> fetchJoblist() async {
+  Future<List<JobModel>> fetchJoblist(
+      {String? query,
+      String? location,
+      String? salaryMin,
+      String? salaryMax}) async {
     try {
-      return await jobRemoteDatasource.fetchAvailableJobs();
+      return await jobRemoteDatasource.fetchAvailableJobs(
+          query: query,
+          location: location,
+          salaryMin: salaryMin,
+          salaryMax: salaryMax);
     } on DioException catch (e) {
       debugPrint(e.message);
       Get.snackbar("Unexpected Error Occur");

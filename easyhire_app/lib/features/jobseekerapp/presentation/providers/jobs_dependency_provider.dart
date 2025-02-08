@@ -25,19 +25,26 @@ final jobRemoteDataSourceProvider = Provider<JobsRemoteDatasource>((ref) {
 });
 
 final jobRepoProvider = Provider<JobRepo>((ref) {
-  final jobDatasource = ref.read(jobRemoteDataSourceProvider);
+  final jobDatasource = ref.watch(jobRemoteDataSourceProvider);
   return JobRepoImpl(jobDatasource);
 });
 
 final jobUsecaseProvider = Provider<FetchJobUsecase>((ref) {
-  final jobrepoProvider = ref.read(jobRepoProvider);
+  final jobrepoProvider = ref.watch(jobRepoProvider);
   return FetchJobUsecase(jobrepoProvider);
 });
 
 final jobNotifierProvider =
     StateNotifierProvider<JobStateNotifier, AsyncValue<List<JobEntity?>>>(
         (ref) {
-  final jobUsecase = ref.read(jobUsecaseProvider);
+  final jobUsecase = ref.watch(jobUsecaseProvider);
+  return JobStateNotifier(jobUsecase);
+});
+
+final filteredJobNotifierProvider =
+    StateNotifierProvider<JobStateNotifier, AsyncValue<List<JobEntity?>>>(
+        (ref) {
+  final jobUsecase = ref.watch(jobUsecaseProvider);
   return JobStateNotifier(jobUsecase);
 });
 

@@ -17,4 +17,9 @@ abstract class AppIcons {
   static const setting = Icons.settings;
   static const tick = Icons.check_circle_rounded;
   static const add = Icons.add_circle;
+  static const back = Icons.arrow_back;
+  static const clear = Icons.clear;
+  static const more = Icons.more_vert;
+  static const filter = Icons.tune;
+  static const edit = Icons.edit;
 }

@@ -6,8 +6,16 @@ class FetchJobUsecase {
 
   FetchJobUsecase(this.jobrepo);
 
-  Future<List<JobEntity>> call() async {
-    final response = await jobrepo.fetchJoblist();
+  Future<List<JobEntity>> call(
+      {String? query,
+      String? location,
+      String? salaryMin,
+      String? salaryMax}) async {
+    final response = await jobrepo.fetchJoblist(
+        query: query,
+        location: location,
+        salaryMin: salaryMin,
+        salaryMax: salaryMax);
     return response;
   }
 }

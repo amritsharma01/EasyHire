@@ -39,9 +39,17 @@ class JobStateNotifier extends StateNotifier<AsyncValue<List<JobEntity?>>> {
     fetchJobs();
   }
 
-  Future<void> fetchJobs() async {
+  Future<void> fetchJobs(
+      {String? query,
+      String? location,
+      String? salaryMin,
+      String? salaryMax}) async {
     try {
-      final jobsList = await _fetchJobUsecase.call();
+      final jobsList = await _fetchJobUsecase.call(
+          query: query,
+          location: location,
+          salaryMin: salaryMin,
+          salaryMax: salaryMax);
       print(jobsList);
       state = AsyncValue.data(jobsList);
     } catch (e) {

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/services/get.dart';
 import '../../../../core/utils/app_icons.dart';
 import '../../../auth/presentation/widgets/buttonWidgets/appicon.dart';
+import '../../../user/presentation/pages/search_view.dart';
 import 'notification_icon.dart';
 
 AppBar commonAppBar(Widget title) {
@@ -17,8 +18,9 @@ AppBar commonAppBar(Widget title) {
     actions: [
       Center(child: const NotificationIcon()),
       15.horizontalGap,
-      AppIcon(AppIcons.search,
-          size: 18, onTap: () {}, color: Get.disabledColor.o5),
+      AppIcon(AppIcons.search, size: 18, onTap: () {
+        Get.to(SearchView());
+      }, color: Get.disabledColor.o5),
       15.horizontalGap
     ],
   );

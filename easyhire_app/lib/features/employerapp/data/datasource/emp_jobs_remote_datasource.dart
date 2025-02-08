@@ -9,9 +9,14 @@ class EmpJobsRemoteDatasource {
 
   EmpJobsRemoteDatasource(this._apiManager);
 
-  Future<List<JobModel>> fetchAvailableJobs() async {
+  Future<List<JobModel>> fetchAvailableJobs({
+    String? query,
+  }) async {
     List<JobModel> joblist = [];
-    final response = await _apiManager.get(ApiEndpoints.empoyerJobs);
+    final response =
+        await _apiManager.get(ApiEndpoints.empoyerJobs, queryParameters: {
+      if (query != null && query.isNotEmpty) "search": query,
+    });
     final list = response.data['results'];
     for (var i in list) {
       joblist.add(JobModel.fromJson(i));
