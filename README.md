@@ -45,15 +45,15 @@ EasyHire is an **online job portal** that connects job seekers and employers. Bu
 easyhire-server/
 │── users/          # Custom user model & authentication
 │── job/          # Job-related endpoints (CRUD)
-│── jobportal/  # Job application handling
+│── jobportal/  
 ```
 
 ### Frontend (Flutter)
 ```
 easyhire-app/
 │── lib/
-│   ├── abstractservices/          # Data layer (models, repositories)
-│   ├── core/        # Business logic (use cases, entities)
+│   ├── abstractservices/         
+│   ├── core/      
 │   ├── features/  # data, domain, presentatino
 ```
 
